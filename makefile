@@ -4,26 +4,24 @@ INCS=\
 # Specify the location to my SDK libs (e.g. DbgHelp.Lib)
 LIBS=\
 	"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib" 
+	
+CC=cl
+CFLAGS=/c /EHsc
+#LDFLAGS=/link /LIBPATH:$(LIBS)
+SOURCES=main.cpp
+OBJECTS=$(SOURCES:.cpp=.obj)
+EXECUTABLE=sorting
 
-mybuild: main.obj
-	cl /Zi /o sorting.exe main.obj
+#Uncomment the following to enable debugging
+DBGFLAGS=/Zi
 
-main.obj: main.cpp
-	cl /c /EHsc main.cpp
+all: $(OBJECTS) $(EXECUTABLE)
 
-all:mybuild
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(DBGFLAGS) $(OBJECTS) -Fe$@ $(LDFLAGS)
+
+.cpp.obj:
+	$(CC) $(CFLAGS) $< -Fe$@
 
 clean:
    del *.exe *.obj *.pdb *.ilk
-
-#------------------------------------------------------------------
-# If creating multiple obj files:
-#mybuild: main.obj foo.obj
-#	cl /o myTest.exe main.obj foo.obj /link  \
-#		/LIBPATH:$(LIBS) myLib.lib /NODEFAULTLIB:libcmt.lib
-
-# To create the 2nd target: foo.obj
-#foo.obj: foo.cpp
-#	cl /c /EHsc foo.cpp -I $(INCS)
- 
-
