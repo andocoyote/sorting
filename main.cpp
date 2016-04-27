@@ -7,6 +7,7 @@ using namespace std;
 int menu(); //displays the user menu, returns the menu selection
 void displayArray(int numbers[], const int size);
 void selectionSort(int numbers[], const int size, const bool showSorting);
+void insertionSort(int numbers[], const int size, const bool showSorting);
 void resetArray(int numbers[], const int size);
 
 //begin main function
@@ -36,6 +37,7 @@ void main()
 				exit = false; 
 				break;
 				
+				// User wants to sort via Selection Sort
 		case 2: cout << "Do you want to show the sorting algorithm's work? (y/n): ";
 				cin >> selection;
 				
@@ -53,6 +55,28 @@ void main()
 				displayArray(numbers, size);
 	
 				selectionSort(numbers, size, showSorting);
+				
+				cout << "Sorted array:" << endl;
+				displayArray(numbers, size);
+				
+				// User wants to sort via Insertion Sort
+		case 3: cout << "Do you want to show the sorting algorithm's work? (y/n): ";
+				cin >> selection;
+				
+				if (selection == 'y')
+				{
+					showSorting = true;
+				}
+		
+				cout << "Sorting the array with Insertion Sort:" << endl;
+		
+				// Fill the array with random numbers between 0 and 100 inclusively
+				resetArray(numbers, size);
+				
+				cout << "Inititial array:" << endl;
+				displayArray(numbers, size);
+	
+				insertionSort(numbers, size, showSorting);
 				
 				cout << "Sorted array:" << endl;
 				displayArray(numbers, size);
@@ -80,6 +104,7 @@ int menu()
 	cout << "Please choose from the following options" << endl;
 	cout << "1.  Display the array" << endl;
 	cout << "2.  Sort the array using Selection Sort" << endl;
+	cout << "3.  Sort the array using Insertion Sort" << endl;
 	cout << "0.  Exit the program" << endl;
 	cout << ": ";
 	cin >> selection; //get the selection from the menu
@@ -113,7 +138,7 @@ void displayArray(int numbers[], const int size)
 
 //-----------------------------------------------------------------------
 
-// Use selection sort to sort the array in descending order.
+// Use Selection Sort to sort the array in descending order.
 void selectionSort(int numbers[], const int size, const bool showSorting)
 {
 	int least = 0;
@@ -147,6 +172,43 @@ void selectionSort(int numbers[], const int size, const bool showSorting)
 		temp = numbers[least];
 		numbers[least] = numbers[i];
 		numbers[i] = temp;
+		
+		// Show the array at each step of the user elected to do so.
+		if (showSorting)
+		{
+			displayArray(numbers, size);
+		}
+	}
+}
+
+//-----------------------------------------------------------------------
+
+// Use Insertion sort to sort the array in ascending order.
+void insertionSort(int numbers[], const int size, const bool showSorting)
+{
+	int j = 0;
+	int temp = 0;
+	
+	for (int i = 1; i < size; i++)
+	{
+		// Set j to the beginning of the unsorted portion of the array
+		j = i;
+			
+		while (j > 0 && numbers[j-1] > numbers[j])
+		{
+			// If the previous number is smaller than the current number, swap them
+			// This will move 'new' numbers in our ever increasing array up to their rightful position
+			if (showSorting)
+			{
+				cout << "Swapping numbers[" << j << "]:" << numbers[j] << 
+				" with numbers[" << j-1 << "]:" << numbers[j-1] << endl;
+			}
+		
+			temp = numbers[j];
+			numbers[j] = numbers[j-1];
+			numbers[j-1] = temp;
+			j--;
+		}
 		
 		// Show the array at each step of the user elected to do so.
 		if (showSorting)
