@@ -116,28 +116,37 @@ void displayArray(int numbers[], const int size)
 // Use selection sort to sort the array in descending order.
 void selectionSort(int numbers[], const int size, const bool showSorting)
 {
-	int first = 0;
+	int least = 0;
 	int temp = 0;
 	
 	// Iterate through the array from end to beginning.
 	// We're looking for the smallest number in the array to swap at the end of the array.
 	// After each iteration, the array gets one number smaller, from our perspective
+	// This outer loop (i) just controls the current size of our shrinking array
 	for (int i = size-1; i > 0; i--)
 	{
-		first = 0;
+		least = 0;
 		
 		for (int j = 1; j <= i; j++)
 		{
-			if (numbers[j] < numbers [first])
+			// If the next number is less than our current 'least' number, we have a new 'least' number index
+			// Keep iterating over the array until we find the 'least' number in the array
+			if (numbers[j] < numbers[least])
 			{
-				first = j;
+				least = j;
 			}
-			
-			// Swap the smallest number with the last number in the ever shortening array
-			temp = numbers[first];
-			numbers[first] = numbers[i];
-			numbers[i] = temp;
 		}
+		
+		// Swap the smallest number with the last number in the ever shortening array
+		if (showSorting)
+		{
+			cout << "Swapping numbers[" << least << "]:" << numbers[least] << 
+			" with numbers[" << i << "]:" << numbers[i] << endl;
+		}
+		
+		temp = numbers[least];
+		numbers[least] = numbers[i];
+		numbers[i] = temp;
 		
 		// Show the array at each step of the user elected to do so.
 		if (showSorting)
