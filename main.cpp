@@ -8,6 +8,7 @@ int menu(); //displays the user menu, returns the menu selection
 void displayArray(int numbers[], const int size);
 void selectionSort(int numbers[], const int size, const bool showSorting);
 void insertionSort(int numbers[], const int size, const bool showSorting);
+void bubbleSort(int numbers[], const int size, const bool showSorting);
 void resetArray(int numbers[], const int size);
 
 //begin main function
@@ -80,6 +81,28 @@ void main()
 				
 				cout << "Sorted array:" << endl;
 				displayArray(numbers, size);
+				
+				// User wants to sort via Bubble Sort
+		case 4: cout << "Do you want to show the sorting algorithm's work? (y/n): ";
+				cin >> selection;
+				
+				if (selection == 'y')
+				{
+					showSorting = true;
+				}
+		
+				cout << "Sorting the array with Bubble Sort:" << endl;
+		
+				// Fill the array with random numbers between 0 and 100 inclusively
+				resetArray(numbers, size);
+				
+				cout << "Inititial array:" << endl;
+				displayArray(numbers, size);
+	
+				bubbleSort(numbers, size, showSorting);
+				
+				cout << "Sorted array:" << endl;
+				displayArray(numbers, size);
 
 				//user wants to exit the program
 		case 0: exit = true;
@@ -105,6 +128,7 @@ int menu()
 	cout << "1.  Display the array" << endl;
 	cout << "2.  Sort the array using Selection Sort" << endl;
 	cout << "3.  Sort the array using Insertion Sort" << endl;
+	cout << "4.  Sort the array using Bubble Sort" << endl;
 	cout << "0.  Exit the program" << endl;
 	cout << ": ";
 	cin >> selection; //get the selection from the menu
@@ -183,7 +207,7 @@ void selectionSort(int numbers[], const int size, const bool showSorting)
 
 //-----------------------------------------------------------------------
 
-// Use Insertion sort to sort the array in ascending order.
+// Use Insertion Sort to sort the array in ascending order.
 void insertionSort(int numbers[], const int size, const bool showSorting)
 {
 	int j = 0;
@@ -217,3 +241,38 @@ void insertionSort(int numbers[], const int size, const bool showSorting)
 		}
 	}
 }
+
+//-----------------------------------------------------------------------
+
+// Use Bubble Sort to sort the array in ascending order.
+void bubbleSort(int numbers[], const int size, const bool showSorting)
+{
+	int temp = 0;
+	
+	for (int i = 0; i < size-1; i++)
+	{
+		for (int j = i+1; j < size; j++)
+		{
+			if (numbers[i] > numbers[j])
+			{
+				// If the previous number is greater than the next number, swap them
+				if (showSorting)
+				{
+					cout << "Swapping numbers[" << i << "]:" << numbers[i] << 
+					" with numbers[" << j << "]:" << numbers[j] << endl;
+				}
+				
+				temp = numbers[i];
+				numbers[i] = numbers[j];
+				numbers[j] = temp;
+			}
+		}
+		
+		// Show the array at each step of the user elected to do so.
+		if (showSorting)
+		{
+			displayArray(numbers, size);
+		}
+	}
+}
+
