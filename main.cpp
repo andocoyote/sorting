@@ -60,6 +60,9 @@ void main()
 				cout << "Sorted array:" << endl;
 				displayArray(numbers, size);
 				
+				exit = false; 
+				break;
+				
 				// User wants to sort via Insertion Sort
 		case 3: cout << "Do you want to show the sorting algorithm's work? (y/n): ";
 				cin >> selection;
@@ -82,6 +85,9 @@ void main()
 				cout << "Sorted array:" << endl;
 				displayArray(numbers, size);
 				
+				exit = false; 
+				break;
+				
 				// User wants to sort via Bubble Sort
 		case 4: cout << "Do you want to show the sorting algorithm's work? (y/n): ";
 				cin >> selection;
@@ -103,6 +109,9 @@ void main()
 				
 				cout << "Sorted array:" << endl;
 				displayArray(numbers, size);
+				
+				exit = false; 
+				break;
 
 				//user wants to exit the program
 		case 0: exit = true;
@@ -208,6 +217,9 @@ void selectionSort(int numbers[], const int size, const bool showSorting)
 //-----------------------------------------------------------------------
 
 // Use Insertion Sort to sort the array in ascending order.
+// Insertion Sort essentially examines each number one at a time
+// and inserts each number into the array at its sorted position by
+// comparing and swapping until the number is larger than the one ahead.
 void insertionSort(int numbers[], const int size, const bool showSorting)
 {
 	int j = 0;
